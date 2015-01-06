@@ -1,0 +1,22 @@
+-----model Department---------
+types
+Department :: rooms: map nat to Troom     --
+              staff: map IdPer to Person
+              Edication
+              chair: map Title to Chair
+              print: map IdPr to Printing;
+Troom      :: type:(<sem> | <com>) cnt:nat;
+IdPer      :: nat;
+Person     ::  ; 
+ 
+SystPost :: r:[nat] [Comm] sys:System; 
+System   :: main: Alfa add: Alfa ax: StringSet body: set of RulePt;
+StringSet = set of String;
+Var      :: char;
+StringVar = seq of (char | Var);
+RulePt   :: lft: StringVar rth: StringVar;
+Comm      = String;
+Alfa      = set of char;
+String    = seq of char;
+Substit   = map Var to String;
+Trans    :: String RulePt Substit
