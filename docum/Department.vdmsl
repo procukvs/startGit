@@ -4,19 +4,40 @@ Department :: rooms: map nat to Troom     --
               staff: map IdPer to Person
               Edication
               chair: map Title to Chair
-              print: map IdPr to Printing;
+              print: map IdPrn to Printing;
+              
+Edication  :: stude: map Flow to (map [nat] to set of IdPer) --Студенти 
+              curri: map Flow to (map Title to Discipline)   --Учбові плани 
+              assig: map Subject to Executor                 --Навантаження
+              sched: map Place to Studies;                   --Розклад
+ 
 Troom      :: type:(<sem> | <com>) cnt:nat;
 IdPer      :: nat;
-Person     ::  ; 
- 
-SystPost :: r:[nat] [Comm] sys:System; 
-System   :: main: Alfa add: Alfa ax: StringSet body: set of RulePt;
-StringSet = set of String;
-Var      :: char;
-StringVar = seq of (char | Var);
-RulePt   :: lft: StringVar rth: StringVar;
-Comm      = String;
-Alfa      = set of char;
+Person     :: name:String addr:String tel:String sex:(<M>|<W>); 
+              
+Flow       :: speciality:String year:nat term:nat; --Потік
+Title       = String;                              --Назва
+Discipline :: Direction hours:map Tlean to nat;    --Дисципліна
+Direction   = <Programming> | <Algorithm> | <DataBase>;  --Учбовий напрямок  
+Tlean       = <Lecture> | <Seminar> | <Practice> | <Control> | <Individual>; --Тип годин
+
+Subject    :: Tlean Title Learner;                 --Предмет
+Learner     = Flow | Group | IdPer;                --Учбова одиниця
+Group      :: Flow num:[nat];                      --Група  
+Executor    = Title | IdPer;                       --Виконавець
+Place      :: num:nat Day pair:nat;                --Місце
+Day         = <Mon> | <Tue> | <Wed> | <Thu> | <Fri>;  --День неділі 
+Studies    :: Subject teacher:IdPer;               --Заняття 
+
+Chair      :: head:[IdPer] teac:map IdPer to Teacher grad:map IdPer to Graduate; --кафедра    
+Teacher    :: Lead Direction Post [ScienceD];   --викладач
+Graduate   :: Lead year:nat;                  --аспірант                                         
+Lead        = <Programming> | <Algorithm>;     --Науковий напрямок
+Post        = <Professor> | <Assistant>;      --   
+ScienceD    = <Candidate> | <Doctor>;         --       
+
+IdPrn      :: nat;
+Printing   :: auto:set of IdPer Title Lead year:nat Type;
+Type        = <Theses> | <Manual> | <Monography> | <Article>; 
 String    = seq of char;
-Substit   = map Var to String;
-Trans    :: String RulePt Substit
+ 
