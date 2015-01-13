@@ -9,23 +9,17 @@ create table Flow
  Term smallint not null 
 );
 
-drop table if exists Curriculum;
-create table Curriculum
-(idFl integer not null,
- idDisc integer not null,
+drop table if exists Discipline;
+create table Discipline
+(idDisc integer not null primary key,
+ Title varchar(15) not null,
+ idFl integer not null,
  idDir integer not null,
  Lecture integer,
  Seminar integer,
  Practice integer,
  Control integer,
- Individ integer,
- contraint primary key (idFl, idDisc)
-);
-
-drop table if exists Discipline;
-create table Discipline
-(idDisc integer not null primary key,
- Discipline varchar(15) not null
+ Individ integer
 );
 
 drop table if exists Direction;
@@ -85,15 +79,21 @@ create table Chair
  idLead integer
 ); 
 
+drop table if exists Rooms;
+create table Rooms
+(idRoom integer not null primary key,
+ tRoom char(3),
+ cntSt integer not null
+);
+
 drop table if exists Assignment;
 create table Assignment
-(idFl integer not null,
- idDisc integer not null,
- tLean char(3) not null,
+(idDisc integer not null,
  tExec char(1) not null,
  idExec integer not null,
+ tLean char(3) not null,
  cntLearner smallint,
- contraint primary key (idFl, idDisc, tLean, tExec, idExec)
+ contraint primary key (idDisc, tLean, tExec, idExec)
 );
 
 drop table if exists Schedule;
@@ -101,10 +101,10 @@ create table Schedule
 (idRoom integer not null,
  tDay char(3) not null,
  Pair smallint not null,
- idFl integer not null,
  idDisc integer not null,
  GroupS smallint,
  idPer integer,
+ tLean char(3) not null,
  contraint primary key (idRoom, tDay, Pair)
 ); 
 
@@ -112,7 +112,7 @@ drop table if exists Printing;
 create table Printing
 (idPr integer not null primary key,
  Title varchar(15) not null,
- idLead integer,
+ idSci integer,
  YearP integer,
  tPrint varchar(10)
 );
